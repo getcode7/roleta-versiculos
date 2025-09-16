@@ -1,0 +1,66 @@
+.card-versiculo {
+  position: relative;
+  width: 340px;
+  padding: 70px 36px 0px 36px;
+  min-height: 190px;
+  margin: 40px auto;
+  background: #fffbea;
+  border-radius: 18px;
+  box-shadow: 0 8px 28px rgba(44,36,12,.13);
+  border: 2px solid #e0c36c;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-capitulo {
+  position: absolute;
+  top: 12px;
+  left: 18px;
+  font-size: 2rem;        /* maior tamanho */
+  font-weight: bold;      /* negrito */
+  color: #b29a40;
+  opacity: 0.85;
+  letter-spacing: 2px;
+}
+
+
+.card-versiculo-num {
+  position: absolute;
+  bottom: 12px;
+  right: 18px;
+  font-size: 1rem;        /* menor tamanho */
+  font-weight: bold;      /* negrito */
+  color: #b29a40;
+  opacity: 0.85;
+  letter-spacing: 1px;
+}
+
+
+.card-livro {
+  position: absolute;
+  top: 20%; left: 50%;
+  transform: translate(-50%, -45%);
+  font-size: 1.1rem;
+  color: #e0c36c;
+  opacity: 0.40;
+  pointer-events: none; /* não atrapalha seleção do texto principal */
+  user-select: none;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 0;
+}
+
+.card-texto {
+  position: relative;
+  z-index: 1;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #1d1607;
+  text-align: center;
+  margin: 0 36px;
+  line-height: 1.35;
+  background: rgba(255,251,234,0.72);
+  padding: 0 2px;
+}
