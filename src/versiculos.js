@@ -1,5 +1,6 @@
 // src/versiculos.js
 export const versiculos = [
+  
   {
     "livro": "João",
     "capitulo": "3",
@@ -694,3 +695,5 @@ export const versiculos = [
 
   // Adicione outros versículos no mesmo formato...
 ];
+
+
