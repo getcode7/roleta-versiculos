@@ -73,7 +73,7 @@ function App() {
       </button>
 
       {girando && (
-        <div className="card-placeholder">A procurar um versículo…</div>
+        <div className="card-placeholder">Espere por Favor</div>
       )}
 
       {!girando && sorteado && <CardVersiculo data={sorteado} />}
