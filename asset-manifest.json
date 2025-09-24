@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/roleta-versiculos/static/css/main.be28fd60.css",
-    "main.js": "/roleta-versiculos/static/js/main.89d6fa98.js",
+    "main.css": "/roleta-versiculos/static/css/main.de3e35cd.css",
+    "main.js": "/roleta-versiculos/static/js/main.4bce2cfb.js",
     "static/js/453.0769ded3.chunk.js": "/roleta-versiculos/static/js/453.0769ded3.chunk.js",
+    "static/media/chuva-textura.jpg": "/roleta-versiculos/static/media/chuva-textura.2075d53b70adce56c126.jpg",
     "index.html": "/roleta-versiculos/index.html",
-    "main.be28fd60.css.map": "/roleta-versiculos/static/css/main.be28fd60.css.map",
-    "main.89d6fa98.js.map": "/roleta-versiculos/static/js/main.89d6fa98.js.map",
+    "main.de3e35cd.css.map": "/roleta-versiculos/static/css/main.de3e35cd.css.map",
+    "main.4bce2cfb.js.map": "/roleta-versiculos/static/js/main.4bce2cfb.js.map",
     "453.0769ded3.chunk.js.map": "/roleta-versiculos/static/js/453.0769ded3.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.be28fd60.css",
-    "static/js/main.89d6fa98.js"
+    "static/css/main.de3e35cd.css",
+    "static/js/main.4bce2cfb.js"
   ]
 }
