@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/roleta-versiculos/static/css/main.ad48552d.css",
-    "main.js": "/roleta-versiculos/static/js/main.275c4754.js",
+    "main.css": "/roleta-versiculos/static/css/main.be28fd60.css",
+    "main.js": "/roleta-versiculos/static/js/main.89d6fa98.js",
     "static/js/453.0769ded3.chunk.js": "/roleta-versiculos/static/js/453.0769ded3.chunk.js",
     "index.html": "/roleta-versiculos/index.html",
-    "main.ad48552d.css.map": "/roleta-versiculos/static/css/main.ad48552d.css.map",
-    "main.275c4754.js.map": "/roleta-versiculos/static/js/main.275c4754.js.map",
+    "main.be28fd60.css.map": "/roleta-versiculos/static/css/main.be28fd60.css.map",
+    "main.89d6fa98.js.map": "/roleta-versiculos/static/js/main.89d6fa98.js.map",
     "453.0769ded3.chunk.js.map": "/roleta-versiculos/static/js/453.0769ded3.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ad48552d.css",
-    "static/js/main.275c4754.js"
+    "static/css/main.be28fd60.css",
+    "static/js/main.89d6fa98.js"
   ]
 }
