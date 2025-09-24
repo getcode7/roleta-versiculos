@@ -55,6 +55,8 @@ function App() {
   }, []);
 
   return (
+    <div>
+    <div className="rain-overlay"></div> {/* Fundo de chuva*/}
     <div className="app-container">
       <h2 className="titulo">Tudo tem um propósito debaixo do céu.</h2>
 
@@ -64,10 +66,10 @@ function App() {
         className="btn-roleta"
       >
         {jaSorteou
-          ? "Vai em Paz!"
+          ? "Deus seja contigo!"
           : girando
           ? "Procurando..."
-          : "O que tens para mim ?"}
+          : "Ver"}
       </button>
 
       {girando && (
@@ -76,6 +78,7 @@ function App() {
 
       {!girando && sorteado && <CardVersiculo data={sorteado} />}
     </div>
+  </div>
   );
 }
 
