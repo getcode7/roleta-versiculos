@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/roleta-versiculos/static/css/main.a792ece8.css",
+    "main.js": "/roleta-versiculos/static/js/main.2944ab04.js",
+    "static/js/453.0769ded3.chunk.js": "/roleta-versiculos/static/js/453.0769ded3.chunk.js",
+    "index.html": "/roleta-versiculos/index.html",
+    "main.a792ece8.css.map": "/roleta-versiculos/static/css/main.a792ece8.css.map",
+    "main.2944ab04.js.map": "/roleta-versiculos/static/js/main.2944ab04.js.map",
+    "453.0769ded3.chunk.js.map": "/roleta-versiculos/static/js/453.0769ded3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a792ece8.css",
+    "static/js/main.2944ab04.js"
+  ]
+}
