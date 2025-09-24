@@ -37,7 +37,7 @@ function App() {
 
   return (
     <div style={{ textAlign: "center", marginTop: 50 }}>
-      <h2>Roleta de Versículos</h2>
+      <h2>Tudo tem um propósito debaixo do céu.</h2>
       <button onClick={iniciarRoleta} disabled={girando}>
         {girando ? "Girando..." : "Girar Roleta"}
       </button>
