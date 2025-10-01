@@ -46,7 +46,7 @@ app.post("/comentarios", (req, res) => {
 // Servir frontend build (para produção)
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-app.get("*", (req, res) => {
+app.get(/^(?!\/comentarios).*$/, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
 });
 

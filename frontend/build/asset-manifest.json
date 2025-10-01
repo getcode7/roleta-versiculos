@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/roleta-versiculos/static/css/main.943a51c3.css",
+    "main.js": "/roleta-versiculos/static/js/main.ea56cf81.js",
+    "static/js/317.f2926353.chunk.js": "/roleta-versiculos/static/js/317.f2926353.chunk.js",
+    "static/media/chuva-textura.jpg": "/roleta-versiculos/static/media/chuva-textura.2075d53b70adce56c126.jpg",
+    "index.html": "/roleta-versiculos/index.html",
+    "main.943a51c3.css.map": "/roleta-versiculos/static/css/main.943a51c3.css.map",
+    "main.ea56cf81.js.map": "/roleta-versiculos/static/js/main.ea56cf81.js.map",
+    "317.f2926353.chunk.js.map": "/roleta-versiculos/static/js/317.f2926353.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.943a51c3.css",
+    "static/js/main.ea56cf81.js"
+  ]
+}
