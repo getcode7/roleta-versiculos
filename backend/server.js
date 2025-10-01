@@ -10,46 +10,44 @@ const db = new sqlite3.Database("./comentarios.db");
 app.use(cors());
 app.use(express.json());
 
-// Criação da tabela se não existir
-db.run("CREATE TABLE IF NOT EXISTS comentarios (id INTEGER PRIMARY KEY AUTOINCREMENT, texto TEXT)", (err) => {
-  if (err) {
-    console.error("Erro ao criar tabela comentarios:", err.message);
-  }
-});
+// Tabela
+db.run("CREATE TABLE IF NOT EXISTS comentarios (id INTEGER PRIMARY KEY AUTOINCREMENT, texto TEXT)");
 
-// Rota para listar comentários (GET)
+// Caminho para frontend build
+const frontendBuildPath = path.join(__dirname, "../frontend/build");
+
+// Rotas API
 app.get("/comentarios", (req, res) => {
   db.all("SELECT * FROM comentarios", [], (err, rows) => {
-    if (err) {
-      console.error("Erro ao buscar comentarios:", err.message);
-      return res.status(500).json({ error: "Erro ao buscar comentários" });
-    }
+    if (err) return res.status(500).json({ error: "Erro ao buscar comentários" });
     res.json(rows);
   });
 });
 
-// Rota para adicionar comentário (POST)
 app.post("/comentarios", (req, res) => {
   const { texto } = req.body;
   if (!texto || typeof texto !== "string") {
     return res.status(400).json({ error: "Campo texto é obrigatório e deve ser string" });
   }
-  db.run("INSERT INTO comentarios (texto) VALUES (?)", [texto], function (err) {
-    if (err) {
-      console.error("Erro ao adicionar comentario:", err.message);
-      return res.status(500).json({ error: "Erro ao adicionar comentário" });
-    }
+  db.run("INSERT INTO comentarios (texto) VALUES (?)", [texto], function(err) {
+    if (err) return res.status(500).json({ error: "Erro ao adicionar comentário" });
     res.status(201).json({ id: this.lastID, texto });
   });
 });
 
-// Servir frontend build (para produção)
-app.use(express.static(path.join(__dirname, "../frontend/build")));
+// Servir arquivos estáticos
+app.use(express.static(frontendBuildPath));
 
-app.get(/^(?!\/comentarios).*$/, (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
+// Middleware fallback para React Router, sem usar rota '*'
+app.use((req, res, next) => {
+  const reqPath = req.path;
+  if (reqPath.startsWith("/comentarios")) {
+    // Não intercepta rotas API que não existam
+    return res.status(404).send("Not Found");
+  }
+  res.sendFile(path.join(frontendBuildPath, "index.html"));
 });
 
-// Start server
+// Iniciar servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
