@@ -2,7 +2,7 @@
   "name": "roleta-versiculos",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://getcode7.github.io/roleta-versiculos",
+  "_homepage": "https://getcode7.github.io/roleta-versiculos",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.8.0",
