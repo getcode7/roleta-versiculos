@@ -17,11 +17,16 @@ function CardVersiculo({ data }) {
 function Comentarios() {
   const [comentarios, setComentarios] = useState([]);
   const [novoComentario, setNovoComentario] = useState("");
+  const [ultimoComentario, setUltimoComentario] = useState(null);
 
+  // Busca todos os comentários ao carregar e define o último para mostrar
   useEffect(() => {
     fetch("http://localhost:5000/comentarios")
       .then(res => res.json())
-      .then(setComentarios);
+      .then(data => {
+        setComentarios(data);
+        if (data.length > 0) setUltimoComentario(data[data.length - 1]);
+      });
   }, []);
 
   function handleEnviar(e) {
@@ -33,41 +38,59 @@ function Comentarios() {
     })
       .then(res => res.json())
       .then((comentario) => {
+        // Atualizar lista interna (todos comentários salvos)
         setComentarios([...comentarios, comentario]);
+        // Mostrar só o último comentário na aba
+        setUltimoComentario(comentario);
         setNovoComentario("");
       });
   }
 
   return (
     <div className="comentarios-container">
-      <h3>Comentários</h3>
+      <h3>Deixe uma mensagem para a próxima pessoa que entrar aqui!</h3>
       <form onSubmit={handleEnviar}>
         <input
           value={novoComentario}
           onChange={e => setNovoComentario(e.target.value)}
           placeholder="Deixe seu comentário"
+          required
         />
         <button type="submit">Enviar</button>
       </form>
-      <ul>
-        {comentarios.map(c => (
-          <li key={c.id}>{c.texto}</li>
-        ))}
-      </ul>
+
+      {/* Mostrar somente o último comentário com avatar */}
+      {ultimoComentario && (
+        <div className="ultimo-comentario" key={ultimoComentario.id}>
+          <div className="comentario-header">
+            <div className="avatar"></div>
+            <div className="user-info">
+              <div className="username"></div>
+              <div className="timestamp"></div>
+            </div>
+          </div>
+          <div className="comment-text">
+            {ultimoComentario.texto}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
 
 function App() {
   const [sorteado, setSorteado] = useState(null);
   const [girando, setGirando] = useState(false);
   const [jaSorteou, setJaSorteou] = useState(false);
+  const [mostrarComentarios, setMostrarComentarios] = useState(false);
   const timeoutRef = useRef(null);
 
   useEffect(() => {
     const flag = localStorage.getItem("jaSorteou");
     if (flag === "true") {
       setJaSorteou(true);
+      setMostrarComentarios(true);
     }
   }, []);
 
@@ -84,6 +107,7 @@ function App() {
       setSorteado(versiculos[indiceAleatorio]);
       setGirando(false);
       setJaSorteou(true);
+      setMostrarComentarios(true);
 
       localStorage.setItem("jaSorteou", "true");
       timeoutRef.current = null;
@@ -114,8 +138,7 @@ function App() {
 
         {!girando && sorteado && <CardVersiculo data={sorteado} />}
 
-        {/* Inserção dos comentários */}
-        <Comentarios />
+        {mostrarComentarios && <Comentarios />}
       </div>
     </div>
   );
