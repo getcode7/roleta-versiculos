@@ -31,7 +31,7 @@ function Comentarios() {
 
   function handleEnviar(e) {
     e.preventDefault();
-    fetch("http://localhost:5000/comentarios", {
+    fetch("https://roleta-versiculos-5.onrender.com/comentarios", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ texto: novoComentario })
