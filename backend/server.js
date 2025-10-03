@@ -10,7 +10,7 @@ const db = new sqlite3.Database("./comentarios.db");
 
 // Configurar CORS para permitir apenas o domínio do frontend (substitua pela sua URL real)
 app.use(cors({
-  origin: "https://roleta-versiculos-4.onrender.com",
+  origin: "https://ecleberaujo.pt",
   optionsSuccessStatus: 200
 }));
 
