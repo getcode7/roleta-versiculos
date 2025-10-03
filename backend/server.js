@@ -7,47 +7,63 @@ const app = express();
 const db = new sqlite3.Database("./comentarios.db");
 
 // Middlewares
-app.use(cors());
-app.use(express.json());
 
-// Tabela
-db.run("CREATE TABLE IF NOT EXISTS comentarios (id INTEGER PRIMARY KEY AUTOINCREMENT, texto TEXT)");
+// Configurar CORS para permitir apenas o domínio do frontend (substitua pela sua URL real)
+app.use(cors({
+  origin: "https://seu-frontend-render.onrender.com",
+  optionsSuccessStatus: 200
+}));
+
+// Limitar tamanho do corpo da requisição a 1MB
+app.use(express.json({ limit: "1mb" }));
+
+// Criar tabela se ela não existir, com tratamento de erro
+db.run("CREATE TABLE IF NOT EXISTS comentarios (id INTEGER PRIMARY KEY AUTOINCREMENT, texto TEXT)", (err) => {
+  if (err) console.error("Erro ao criar tabela:", err);
+});
 
 // Caminho para frontend build
 const frontendBuildPath = path.join(__dirname, "../frontend/build");
 
 // Rotas API
+
 app.get("/comentarios", (req, res) => {
+  console.log("GET /comentarios recebido");
   db.all("SELECT * FROM comentarios", [], (err, rows) => {
-    if (err) return res.status(500).json({ error: "Erro ao buscar comentários" });
+    if (err) {
+      console.error("Erro ao buscar comentários:", err);
+      return res.status(500).json({ error: "Erro ao buscar comentários" });
+    }
     res.json(rows);
   });
 });
 
 app.post("/comentarios", (req, res) => {
+  console.log("POST /comentarios recebido", req.body);
   const { texto } = req.body;
   if (!texto || typeof texto !== "string") {
     return res.status(400).json({ error: "Campo texto é obrigatório e deve ser string" });
   }
   db.run("INSERT INTO comentarios (texto) VALUES (?)", [texto], function(err) {
-    if (err) return res.status(500).json({ error: "Erro ao adicionar comentário" });
+    if (err) {
+      console.error("Erro ao adicionar comentário:", err);
+      return res.status(500).json({ error: "Erro ao adicionar comentário" });
+    }
     res.status(201).json({ id: this.lastID, texto });
   });
 });
 
-// Servir arquivos estáticos
+// Servir arquivos estáticos do frontend
 app.use(express.static(frontendBuildPath));
 
-// Middleware fallback para React Router, sem usar rota '*'
+// Middleware fallback para React Router, sem interceptar rotas API
 app.use((req, res, next) => {
-  const reqPath = req.path;
-  if (reqPath.startsWith("/comentarios")) {
-    // Não intercepta rotas API que não existam
+  if (req.path.startsWith("/comentarios")) {
     return res.status(404).send("Not Found");
   }
   res.sendFile(path.join(frontendBuildPath, "index.html"));
 });
 
-// Iniciar servidor
+// Definir porta e iniciar servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
