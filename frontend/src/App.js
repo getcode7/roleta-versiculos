@@ -15,13 +15,16 @@ function CardVersiculo({ data }) {
 }
 
 function Comentarios() {
+  const API_BASE = "https://seu-backend-render.onrender.com";  
+  
   const [comentarios, setComentarios] = useState([]);
   const [novoComentario, setNovoComentario] = useState("");
   const [ultimoComentario, setUltimoComentario] = useState(null);
+  
 
   // Busca todos os comentários ao carregar e define o último para mostrar
   useEffect(() => {
-    fetch("https://roleta-versiculos-4.onrender.com/comentarios")
+    fetch(`${API_BASE}/comentarios`)
       .then(res => res.json())
       .then(data => {
         setComentarios(data);
@@ -31,7 +34,7 @@ function Comentarios() {
 
   function handleEnviar(e) {
     e.preventDefault();
-    fetch("https://roleta-versiculos-5.onrender.com/comentarios", {
+    fetch(`${API_BASE}/comentarios`, {  // Usando API_BASE no fetch POST
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ texto: novoComentario })
