@@ -21,7 +21,7 @@ function Comentarios() {
 
   // Busca todos os comentários ao carregar e define o último para mostrar
   useEffect(() => {
-    fetch("http://localhost:5000/comentarios")
+    fetch("https://roleta-versiculos-4.onrender.com/comentarios")
       .then(res => res.json())
       .then(data => {
         setComentarios(data);
