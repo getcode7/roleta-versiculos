@@ -23,14 +23,25 @@ function Comentarios() {
   
 
   // Busca todos os comentários ao carregar e define o último para mostrar
-  useEffect(() => {
-    fetch(`${API_BASE}/comentarios`)
-      .then(res => res.json())
-      .then(data => {
-        setComentarios(data);
-        if (data.length > 0) setUltimoComentario(data[data.length - 1]);
-      });
-  }, []);
+useEffect(() => {
+  fetch(`${API_BASE}/comentarios`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Erro HTTP ${response.status} - ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      setComentarios(data);
+      if (data.length > 0) setUltimoComentario(data[data.length - 1]);
+    })
+    .catch(error => {
+      console.error("Erro ao buscar comentários:", error);
+      // Aqui você pode mostrar alguma mensagem de erro para o usuário,
+      // por exemplo, configurando um estado de erro e exibindo na UI
+    });
+}, []);
+
 
   function handleEnviar(e) {
     e.preventDefault();
