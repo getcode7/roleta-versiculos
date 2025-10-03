@@ -15,7 +15,7 @@ function CardVersiculo({ data }) {
 }
 
 function Comentarios() {
-  const API_BASE = "https://seu-backend-render.onrender.com";  
+  const API_BASE = "https://roleta-versiculos-5.onrender.com";
   
   const [comentarios, setComentarios] = useState([]);
   const [novoComentario, setNovoComentario] = useState("");
