@@ -4,7 +4,7 @@ const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
 
 const app = express();
-const db = new sqlite3.Database("./comentarios.db");
+const db = new sqlite3.Database("/data/comentarios.db");
 
 // Middlewares
 
