@@ -7,12 +7,7 @@ const fs = require("fs");
 const app = express();
 
 
-const dataDir = "/data";
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir);
-}
-
-const db = new sqlite3.Database(path.join(dataDir, "comentarios.db"));
+const db = new sqlite3.Database("/data/comentarios.db");
 
 
 
