@@ -1,65 +1,62 @@
 const express = require("express");
 const cors = require("cors");
-const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
-const fs = require("fs");
+const mongoose = require("mongoose");
 
 const app = express();
 
+// Conexão com o MongoDB Atlas (substitua pela sua string real e senha)
+mongoose.connect('mongodb+srv://joelaraujo_db_user:JUjP519fSRppGOit@cluster0.mx4s2dn.mongodb.net/commentsdb?retryWrites=true&w=majority&appName=Cluster0', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log("Conectado ao MongoDB Atlas!");
+}).catch((err) => {
+  console.error("Erro ao conectar ao MongoDB:", err);
+});
 
-const db = new sqlite3.Database("/data/comentarios.db");
-
-
+// Schema e modelo Mongoose
+const comentarioSchema = new mongoose.Schema({
+  texto: { type: String, required: true }
+});
+const Comentario = mongoose.model("Comentario", comentarioSchema);
 
 // Middlewares
-
-// Configurar CORS para permitir apenas o domínio do frontend (substitua pela sua URL real)
 app.use(cors({
   origin: "https://ecleberaujo.pt",
   optionsSuccessStatus: 200
 }));
-
-// Limitar tamanho do corpo da requisição a 1MB
 app.use(express.json({ limit: "1mb" }));
-
-// Criar tabela se ela não existir, com tratamento de erro
-db.run("CREATE TABLE IF NOT EXISTS comentarios (id INTEGER PRIMARY KEY AUTOINCREMENT, texto TEXT)", (err) => {
-  if (err) console.error("Erro ao criar tabela:", err);
-});
 
 // Caminho para frontend build
 const frontendBuildPath = path.join(__dirname, "../frontend/build");
+app.use(express.static(frontendBuildPath));
 
 // Rotas API
-
-app.get("/comentarios", (req, res) => {
-  console.log("GET /comentarios recebido");
-  db.all("SELECT * FROM comentarios", [], (err, rows) => {
-    if (err) {
-      console.error("Erro ao buscar comentários:", err);
-      return res.status(500).json({ error: "Erro ao buscar comentários" });
-    }
-    res.json(rows);
-  });
+app.get("/comentarios", async (req, res) => {
+  try {
+    const comentarios = await Comentario.find();
+    res.json(comentarios);
+  } catch (err) {
+    console.error("Erro ao buscar comentários:", err);
+    res.status(500).json({ error: "Erro ao buscar comentários" });
+  }
 });
 
-app.post("/comentarios", (req, res) => {
-  console.log("POST /comentarios recebido", req.body);
+app.post("/comentarios", async (req, res) => {
   const { texto } = req.body;
   if (!texto || typeof texto !== "string") {
     return res.status(400).json({ error: "Campo texto é obrigatório e deve ser string" });
   }
-  db.run("INSERT INTO comentarios (texto) VALUES (?)", [texto], function(err) {
-    if (err) {
-      console.error("Erro ao adicionar comentário:", err);
-      return res.status(500).json({ error: "Erro ao adicionar comentário" });
-    }
-    res.status(201).json({ id: this.lastID, texto });
-  });
+  try {
+    const novoComentario = new Comentario({ texto });
+    const salvo = await novoComentario.save();
+    res.status(201).json(salvo);
+  } catch (err) {
+    console.error("Erro ao adicionar comentário:", err);
+    res.status(500).json({ error: "Erro ao adicionar comentário" });
+  }
 });
-
-// Servir arquivos estáticos do frontend
-app.use(express.static(frontendBuildPath));
 
 // Middleware fallback para React Router, sem interceptar rotas API
 app.use((req, res, next) => {
@@ -69,6 +66,6 @@ app.use((req, res, next) => {
   res.sendFile(path.join(frontendBuildPath, "index.html"));
 });
 
-// Definir porta e iniciar servidor
+// Porta
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
