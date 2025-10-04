@@ -79,7 +79,7 @@ useEffect(() => {
 
       {/* Mostrar somente o último comentário com avatar */}
       {ultimoComentario && (
-        <div className="ultimo-comentario" key={ultimoComentario.id}>
+        <div className="ultimo-comentario" key={ultimoComentario._id}>
           <div className="comentario-header">
             <div className="avatar"></div>
             <div className="user-info">
