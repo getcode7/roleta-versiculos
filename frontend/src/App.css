@@ -187,7 +187,7 @@ body {
     transform: translate(-50%, -50%);
     font-size: clamp(1rem, 3vw, 1.4rem);
     color: #483D8B;
-    opacity: 0.35;
+    opacity: 0.45;
     pointer-events: none;
     user-select: none;
     text-align: center;
