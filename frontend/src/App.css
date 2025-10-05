@@ -186,7 +186,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: clamp(1rem, 3vw, 1.4rem);
-    color: #36454F;
+    color: #483D8B;
     opacity: 0.35;
     pointer-events: none;
     user-select: none;
