@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 // Conexão com o MongoDB Atlas (substitua pela sua string real e senha)
-mongoose.connect('mongodb+srv://joelaraujo_db_user:JUjP519fSRppGOit@cluster0.mx4s2dn.mongodb.net/commentsdb?retryWrites=true&w=majority&appName=Cluster0', {
+mongoose.connect('mongodb+srv://joel:dbcaboverdeguine@cluster0.mx4s2dn.mongodb.net/commentsdb?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
